@@ -6,8 +6,7 @@ const OTHER_PROJECTS = [
     title: "To-do List Interativa",
     description:
       "Aplicativo de gerenciamento de tarefas com funcionalidades completas de CRUD, interface limpa e responsiva.",
-    image:
-      "https://images.pexels.com/photos/3299/postit-scrabble-to-do.jpg?auto=compress&cs=tinysrgb&w=600",
+    image: "/assets/images/todolist.jpg",
     tags: ["HTML", "CSS", "JavaScript"],
     link: "https://to-do-list-lenin-git-main-lenins-projects-8b0ecd44.vercel.app/",
   },
@@ -15,8 +14,7 @@ const OTHER_PROJECTS = [
     title: "Tela de Login Glassmorphism",
     description:
       "Interface de login moderna com efeito glassmorphism, validação de formulário e transições suaves.",
-    image:
-      "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/assets/images/telaglass.jpg",
     tags: ["HTML", "CSS", "JavaScript"],
     link: "https://login-react-git-main-lenins-projects-8b0ecd44.vercel.app/",
   },
@@ -24,8 +22,7 @@ const OTHER_PROJECTS = [
     title: "Pet Love Landing",
     description:
       "Landing page responsiva para pet shop com animações AOS, design moderno e otimização SEO.",
-    image:
-      "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/assets/images/petlove.jpg",
     tags: ["HTML", "CSS", "AOS", "SEO"],
     link: "https://petlove-brown.vercel.app/",
   },
@@ -33,8 +30,7 @@ const OTHER_PROJECTS = [
     title: "Weather App",
     description:
       "Aplicativo de previsão do tempo com integração à API, geolocalização e interface intuitiva.",
-    image:
-      "https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/assets/images/previsao.jpg",
     tags: ["JavaScript", "API", "Geolocation"],
     link: "https://previsao-do-tempo-git-main-lenins-projects-8b0ecd44.vercel.app/",
   },
@@ -42,8 +38,7 @@ const OTHER_PROJECTS = [
     title: "Cardápio Digital",
     description:
       "Sistema de cardápio online para hamburgueria com carrinho de compras e API WhatsApp.",
-    image:
-      "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/assets/images/burguer.jpg",
     tags: ["JavaScript", "Node.js", "WhatsApp API"],
     link: "https://cardapio-iota-red.vercel.app/",
   },
@@ -51,8 +46,7 @@ const OTHER_PROJECTS = [
     title: "Link Tree Personalizado",
     description:
       "Agregador de links das redes sociais com design minimalista e animações CSS personalizadas.",
-    image:
-      "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "/assets/images/link.jpg",
     tags: ["HTML", "CSS", "Animations"],
     link: "https://leninfontella.github.io/landing-page/",
   },

@@ -142,6 +142,18 @@ export default function Contact() {
                 </a>
               ))}
             </div>
+
+            {/* Vídeo */}
+            <div className="w-full max-w-md rounded-2xl overflow-hidden  mt-4">
+              <video
+                src="/assets/images/1lenin1devpendulo.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
