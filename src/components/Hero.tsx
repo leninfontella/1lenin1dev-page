@@ -85,7 +85,7 @@ export default function Hero() {
       <div className="sticky top-0 w-full h-screen overflow-hidden">
         <video
           ref={videoRef}
-          src="/assets/hero/pendulo.mp4"
+          src="/assets/hero/1lenin1dev.mp4"
           className="w-full h-full object-cover"
           muted
           playsInline
@@ -118,7 +118,7 @@ export default function Hero() {
             className="text-xs font-semibold tracking-[0.4em] text-gray-200 uppercase mb-4"
             style={{ fontFamily: "Space Grotesk, sans-serif" }}
           >
-            Developer
+            Full Stack Developer
           </p>
           <h1
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-6"
@@ -148,14 +148,6 @@ export default function Hero() {
             size={28}
             className="animate-bounce cursor-pointer"
             onClick={scrollToNext}
-          />
-        </div>
-
-        {/* Progress bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/10">
-          <div
-            className="h-full bg-white/70 transition-[width] duration-75"
-            style={{ width: `${scrollProgress * 100}%` }}
           />
         </div>
 

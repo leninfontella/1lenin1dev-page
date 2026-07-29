@@ -111,6 +111,15 @@ export default function Skills() {
               );
             })}
           </div>
+
+          {/* Badges */}
+          <div className="flex justify-center mt-10 pt-10 border-t border-white/10">
+            <img
+              src="/assets/images/badges.png"
+              alt="Badges e certificações"
+              className="w-full max-w-2xl rounded-2xl"
+            />
+          </div>
         </div>
       </div>
     </section>

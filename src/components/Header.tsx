@@ -18,11 +18,23 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-  { icon: MessageCircle, href: "#", label: "WhatsApp" },
+  { icon: Github, href: "https://github.com/leninfontella", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/leninfontella/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/lenin_fontella/",
+    label: "Instagram",
+  },
+  {
+    icon: Youtube,
+    href: "https://www.youtube.com/@lenincazzeri",
+    label: "YouTube",
+  },
+  { icon: MessageCircle, href: "https://w.app/haygej", label: "WhatsApp" },
 ];
 
 export default function Header() {
@@ -57,13 +69,13 @@ export default function Header() {
             e.preventDefault();
             handleNavClick("#hero");
           }}
-          className="font-bold text-xl tracking-widest text-white select-none"
-          style={{
-            fontFamily: "Space Grotesk, sans-serif",
-            letterSpacing: "0.2em",
-          }}
+          className="block select-none"
         >
-          1lênin1dev<span className="text-gray-400">.</span>
+          <img
+            src="/assets/images/header.jpeg"
+            alt="Lénin Fontella"
+            className="h-10 w-10 rounded-full object-cover ring-2 ring-white/30 hover:ring-white/70 transition-all duration-300"
+          />
         </a>
 
         {/* Desktop Nav */}

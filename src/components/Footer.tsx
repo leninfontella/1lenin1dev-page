@@ -16,22 +16,39 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-  { icon: MessageCircle, href: "#", label: "WhatsApp" },
+  { icon: Github, href: "https://github.com/leninfontella", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/leninfontella/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/lenin_fontella/",
+    label: "Instagram",
+  },
+  {
+    icon: Youtube,
+    href: "https://www.youtube.com/@lenincazzeri",
+    label: "YouTube",
+  },
+  { icon: MessageCircle, href: "https://w.app/haygej", label: "WhatsApp" },
 ];
 
 export default function Footer() {
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="bg-black border-t-2 border-white/20 mt-12">
-      <div className="max-w-7xl mx-auto px-6 py-12">
+    <footer className="footer-gradient">
+      <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           {/* Brand */}
           <div>
+            <img
+              src="/assets/images/header.jpeg"
+              alt="Lênin Fontella"
+              className="h-12 w-12 rounded-full object-cover ring-2 ring-white/30 mb-3"
+            />
             <h3
               className="text-2xl font-bold text-white mb-3"
               style={{
@@ -39,9 +56,9 @@ export default function Footer() {
                 letterSpacing: "0.1em",
               }}
             >
-              1lênin1dev<span className="text-gray-500">.</span>
+              Lênin Fontella
             </h3>
-            <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
+            <p className="text-sm text-gray-300 leading-relaxed max-w-xs">
               Full Stack Developer focado em interfaces modernas e soluções
               escaláveis. Construindo produtos de alto impacto.
             </p>
@@ -50,7 +67,7 @@ export default function Footer() {
           {/* Quick links */}
           <div>
             <h4
-              className="text-xs font-semibold tracking-[0.3em] text-gray-500 uppercase mb-4"
+              className="text-xs font-semibold tracking-[0.3em] text-gray-400 uppercase mb-4"
               style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
               Navegação
@@ -60,7 +77,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
                     style={{ fontFamily: "Space Grotesk, sans-serif" }}
                   >
                     {link.label}
@@ -73,7 +90,7 @@ export default function Footer() {
           {/* Social */}
           <div>
             <h4
-              className="text-xs font-semibold tracking-[0.3em] text-gray-500 uppercase mb-4"
+              className="text-xs font-semibold tracking-[0.3em] text-gray-400 uppercase mb-4"
               style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
               Conecte-se
@@ -86,7 +103,7 @@ export default function Footer() {
                   aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-icon w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-gray-400 hover:bg-white hover:text-black hover:border-white transition-all duration-300"
+                  className="social-icon w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300"
                 >
                   <Icon size={16} />
                 </a>
@@ -97,13 +114,13 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-500 text-center md:text-left">
-            © {new Date().getFullYear()} Lenin Fontella. Todos os direitos
+          <p className="text-xs text-gray-400 text-center md:text-left">
+            © {new Date().getFullYear()} Lênin Fontella. Todos os direitos
             reservados.
           </p>
           <button
             onClick={scrollTop}
-            className="group flex items-center gap-2 text-xs font-semibold text-gray-400 hover:text-white transition-colors"
+            className="group flex items-center gap-2 text-xs font-semibold text-gray-300 hover:text-white transition-colors"
             style={{ fontFamily: "Space Grotesk, sans-serif" }}
           >
             Voltar ao topo

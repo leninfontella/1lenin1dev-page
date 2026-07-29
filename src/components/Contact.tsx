@@ -1,18 +1,49 @@
-import { useRef, useEffect } from 'react';
-import { Github, Linkedin, Instagram, Youtube, MessageCircle, Mail, Phone, MapPin } from 'lucide-react';
+import { useRef, useEffect } from "react";
+import {
+  Github,
+  Linkedin,
+  Instagram,
+  Youtube,
+  MessageCircle,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 
 const CONTACT_INFO = [
-  { icon: Mail, label: 'Email', value: 'lenincazzeri@gmail.com', href: 'mailto:lenincazzeri@gmail.com' },
-  { icon: Phone, label: 'Telefone', value: '+55 (51) 98913-4037', href: 'tel:+5551989134037' },
-  { icon: MapPin, label: 'Localização', value: 'Porto Alegre / RS', href: '#' },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "lenincazzeri@gmail.com",
+    href: "mailto:lenincazzeri@gmail.com",
+  },
+  {
+    icon: Phone,
+    label: "Telefone",
+    value: "+55 (51) 98913-4037",
+    href: "tel:+5551989134037",
+  },
+  { icon: MapPin, label: "Localização", value: "Porto Alegre / RS", href: "#" },
 ];
 
 const SOCIAL_LINKS = [
-  { icon: Github, href: '#', label: 'GitHub' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Youtube, href: '#', label: 'YouTube' },
-  { icon: MessageCircle, href: '#', label: 'WhatsApp' },
+  { icon: Github, href: "https://github.com/leninfontella", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/leninfontella/",
+    label: "LinkedIn",
+  },
+  {
+    icon: Instagram,
+    href: "https://www.instagram.com/lenin_fontella/",
+    label: "Instagram",
+  },
+  {
+    icon: Youtube,
+    href: "https://www.youtube.com/@lenincazzeri",
+    label: "YouTube",
+  },
+  { icon: MessageCircle, href: "https://w.app/haygej", label: "WhatsApp" },
 ];
 
 export default function Contact() {
@@ -22,25 +53,31 @@ export default function Contact() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add('reveal');
+          if (entry.isIntersecting) entry.target.classList.add("reveal");
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
     const el = sectionRef.current;
     if (el) observer.observe(el);
-    return () => { if (el) observer.unobserve(el); };
+    return () => {
+      if (el) observer.unobserve(el);
+    };
   }, []);
 
   return (
     <section id="contato" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto" ref={sectionRef} style={{ opacity: 0 }}>
+      <div
+        className="max-w-6xl mx-auto"
+        ref={sectionRef}
+        style={{ opacity: 0 }}
+      >
         {/* Section label */}
         <div className="flex items-center gap-3 mb-12">
           <div className="h-px flex-1 max-w-[60px] bg-white/40" />
           <span
             className="text-xs font-semibold tracking-[0.35em] text-gray-400 uppercase"
-            style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+            style={{ fontFamily: "Space Grotesk, sans-serif" }}
           >
             Contato
           </span>
@@ -50,7 +87,7 @@ export default function Contact() {
           <div className="text-center mb-12">
             <h2
               className="text-3xl md:text-5xl font-bold text-white mb-4"
-              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
               Vamos trabalhar <span className="text-gradient">juntos</span>
             </h2>
@@ -72,7 +109,7 @@ export default function Contact() {
                 </div>
                 <span
                   className="text-xs font-semibold tracking-[0.2em] text-gray-500 uppercase"
-                  style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+                  style={{ fontFamily: "Space Grotesk, sans-serif" }}
                 >
                   {label}
                 </span>
@@ -87,7 +124,7 @@ export default function Contact() {
           <div className="flex flex-col items-center gap-4 pt-8 border-t border-white/10">
             <span
               className="text-xs font-semibold tracking-[0.3em] text-gray-500 uppercase"
-              style={{ fontFamily: 'Space Grotesk, sans-serif' }}
+              style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
               Redes Sociais
             </span>
