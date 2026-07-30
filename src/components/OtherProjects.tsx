@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const OTHER_PROJECTS = [
@@ -67,6 +67,13 @@ export default function OtherProjects() {
   const [current, setCurrent] = useState(0);
   const [visible, setVisible] = useState(getVisibleCount());
 
+  // Estados para gerenciar a posição do toque
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Distância mínima em pixels para acionar o swipe
+  const minSwipeDistance = 50;
+
   // Atualiza o número de cards visíveis ao redimensionar a tela
   useEffect(() => {
     function handleResize() {
@@ -86,6 +93,30 @@ export default function OtherProjects() {
 
   const prev = () => setCurrent((c) => Math.max(c - 1, 0));
   const next = () => setCurrent((c) => Math.min(c + 1, maxIndex));
+
+  // Handlers para os eventos de toque
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      next();
+    } else if (isRightSwipe) {
+      prev();
+    }
+  };
 
   const cardWidthPercent = 100 / visible;
 
@@ -129,7 +160,10 @@ export default function OtherProjects() {
           {/* Carousel track */}
           <div className="overflow-hidden">
             <div
-              className="flex gap-6 carousel-slide"
+              className="flex gap-6 carousel-slide select-none"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               style={{
                 transform: `translateX(calc(-${current} * (${cardWidthPercent}% + ${GAP_PX}px / ${visible})))`,
               }}
