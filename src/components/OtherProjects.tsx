@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const OTHER_PROJECTS = [
@@ -52,14 +52,42 @@ const OTHER_PROJECTS = [
   },
 ];
 
-const VISIBLE = 3;
+const GAP_PX = 24; // equivalente ao gap-6 do Tailwind (1.5rem)
+
+// Define quantos cards ficam visíveis por breakpoint
+function getVisibleCount() {
+  if (typeof window === "undefined") return 3;
+  const width = window.innerWidth;
+  if (width < 640) return 1; // mobile
+  if (width < 1024) return 2; // tablet
+  return 3; // desktop
+}
 
 export default function OtherProjects() {
   const [current, setCurrent] = useState(0);
-  const maxIndex = OTHER_PROJECTS.length - VISIBLE;
+  const [visible, setVisible] = useState(getVisibleCount());
+
+  // Atualiza o número de cards visíveis ao redimensionar a tela
+  useEffect(() => {
+    function handleResize() {
+      const newVisible = getVisibleCount();
+      setVisible(newVisible);
+      // Garante que o índice atual continue válido para o novo layout
+      setCurrent((c) =>
+        Math.min(c, Math.max(OTHER_PROJECTS.length - newVisible, 0)),
+      );
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const maxIndex = Math.max(OTHER_PROJECTS.length - visible, 0);
 
   const prev = () => setCurrent((c) => Math.max(c - 1, 0));
   const next = () => setCurrent((c) => Math.min(c + 1, maxIndex));
+
+  const cardWidthPercent = 100 / visible;
 
   return (
     <section id="outros-projetos" className="py-24 px-6">
@@ -103,15 +131,17 @@ export default function OtherProjects() {
             <div
               className="flex gap-6 carousel-slide"
               style={{
-                transform: `translateX(calc(-${current} * (33.333% + 6px)))`,
+                transform: `translateX(calc(-${current} * (${cardWidthPercent}% + ${GAP_PX}px / ${visible})))`,
               }}
             >
               {OTHER_PROJECTS.map((project) => {
                 const cardClassName =
                   "project-card glow-white-hover flex-shrink-0 border border-white/15 rounded-xl overflow-hidden bg-white/5 block";
                 const cardStyle = {
-                  width: "calc(33.333% - 4px)",
-                  minWidth: "260px",
+                  width: `calc(${cardWidthPercent}% - ${
+                    (GAP_PX * (visible - 1)) / visible
+                  }px)`,
+                  minWidth: "220px",
                 };
 
                 const cardContent = (
