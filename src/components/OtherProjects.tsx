@@ -12,6 +12,23 @@ const OTHER_PROJECTS = [
     link: "https://stuart-serie.vercel.app/",
   },
   {
+    title: "Helena Burger — Fast and Tasty",
+    description:
+      <>Landing page <span className="line-through">NÃO</span> oficial da melhor hamburgueria da cidade de Canoas/RS.</>,
+    image: "/assets/images/helenaburger.jpg",
+    tags: ["React", "TypeScript", "Tailwind CSS"],
+    link: "https://helena-burger.vercel.app/",
+  },
+
+  {
+    title: "Tela de Login Liquid Glass",
+    description:
+      "Interface de login moderna com efeito glassmorphism, validação de formulário e transições suaves.",
+    image: "/assets/images/telaglass.jpg",
+    tags: ["HTML", "CSS", "JavaScript"],
+    link: "https://login-react-git-main-lenins-projects-8b0ecd44.vercel.app/",
+  },
+  {
     title: "To-do List Interativa",
     description:
       "Aplicativo de gerenciamento de tarefas com funcionalidades completas de CRUD, interface limpa e responsiva.",
@@ -19,14 +36,7 @@ const OTHER_PROJECTS = [
     tags: ["HTML", "CSS", "JavaScript"],
     link: "https://to-do-list-lenin-git-main-lenins-projects-8b0ecd44.vercel.app/",
   },
-  {
-    title: "Tela de Login Glassmorphism",
-    description:
-      "Interface de login moderna com efeito glassmorphism, validação de formulário e transições suaves.",
-    image: "/assets/images/telaglass.jpg",
-    tags: ["HTML", "CSS", "JavaScript"],
-    link: "https://login-react-git-main-lenins-projects-8b0ecd44.vercel.app/",
-  },
+
   {
     title: "Pet Love Landing",
     description:
