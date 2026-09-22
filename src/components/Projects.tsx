@@ -39,7 +39,7 @@ export default function Projects() {
           </span>
         </div>
 
-        {/* Featured Project */}
+        {/* Featured Project - Altrum */}
         <div className="section-card glow-white mb-12 overflow-hidden">
           <div className="grid lg:grid-cols-2">
             {/* Image side */}
@@ -107,6 +107,77 @@ export default function Projects() {
                 style={{ fontFamily: "Space Grotesk, sans-serif" }}
               >
                 Ver Projeto <ExternalLink size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Featured Project - Number Game */}
+        <div className="section-card glow-white mb-12 overflow-hidden">
+          <div className="grid lg:grid-cols-2 min-h-[500px] lg:min-h-[540px]">
+            {/* Image side */}
+            <div className="relative overflow-hidden min-h-[320px] lg:min-h-full">
+              <img
+                src="/assets/projects/numbergame.png"
+                alt="Number Game"
+                className="w-full h-full object-cover min-h-[320px] lg:min-h-[540px]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/60 lg:block hidden" />
+              <div className="absolute top-4 left-4">
+                <span
+                  className="bg-white text-black text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase"
+                  style={{ fontFamily: "Space Grotesk, sans-serif" }}
+                >
+                  Destaque
+                </span>
+              </div>
+            </div>
+
+            {/* Content side */}
+            <div className="p-10 md:p-14 lg:p-16 flex flex-col justify-center min-h-[320px] lg:min-h-[540px]">
+              <p
+                className="text-xs font-semibold tracking-[0.3em] text-gray-400 uppercase mb-3"
+                style={{ fontFamily: "Space Grotesk, sans-serif" }}
+              >
+                Criador & Desenvolvedor
+              </p>
+              <h3
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight"
+                style={{ fontFamily: "Space Grotesk, sans-serif" }}
+              >
+                Number Game
+              </h3>
+              <p
+                className="text-base font-semibold text-gray-300 mb-4 tracking-wide"
+                style={{ fontFamily: "Space Grotesk, sans-serif" }}
+              >
+                Jogo Mobile de Adivinhação
+              </p>
+              <p className="text-gray-400 leading-relaxed mb-6 text-sm md:text-base">
+                Jogo mobile interativo de adivinhação de números desenvolvido com
+                foco em experiência do usuário, design moderno e animações fluidas.
+                Desafie seu raciocínio e sua sorte tentando acertar o número secreto,
+                acumular pontos e bater novos recordes.
+              </p>
+              <div className="flex flex-wrap gap-2 mb-8">
+                {["React", "TypeScript", "Tailwind CSS", "Vite"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs md:text-sm border border-white/30 text-gray-300 px-3.5 py-1 rounded-full"
+                    style={{ fontFamily: "Space Grotesk, sans-serif" }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <a
+                href="https://numbergame-luck.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm md:text-base font-semibold text-white border border-white/30 rounded-full px-6 py-3 hover:bg-white hover:text-black transition-all duration-300 w-fit"
+                style={{ fontFamily: "Space Grotesk, sans-serif" }}
+              >
+                Ver Projeto <ExternalLink size={16} />
               </a>
             </div>
           </div>

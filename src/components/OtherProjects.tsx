@@ -3,6 +3,15 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const OTHER_PROJECTS = [
   {
+    title: "Stuart - Não Consegue Salvar o Universo",
+    description: (
+      <>Landing page <span className="line-through">NÃO</span> oficial da série.</>
+    ),
+    image: "/assets/images/stuart.jpg",
+    tags: ["React", "TypeScript", "Tailwind CSS"],
+    link: "https://stuart-serie.vercel.app/",
+  },
+  {
     title: "To-do List Interativa",
     description:
       "Aplicativo de gerenciamento de tarefas com funcionalidades completas de CRUD, interface limpa e responsiva.",
@@ -172,9 +181,8 @@ export default function OtherProjects() {
                 const cardClassName =
                   "project-card glow-white-hover flex-shrink-0 border border-white/15 rounded-xl overflow-hidden bg-white/5 block";
                 const cardStyle = {
-                  width: `calc(${cardWidthPercent}% - ${
-                    (GAP_PX * (visible - 1)) / visible
-                  }px)`,
+                  width: `calc(${cardWidthPercent}% - ${(GAP_PX * (visible - 1)) / visible
+                    }px)`,
                   minWidth: "220px",
                 };
 
@@ -243,11 +251,10 @@ export default function OtherProjects() {
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`rounded-full transition-all duration-200 ${
-                  i === current
-                    ? "bg-white w-6 h-1.5"
-                    : "bg-white/30 w-1.5 h-1.5"
-                }`}
+                className={`rounded-full transition-all duration-200 ${i === current
+                  ? "bg-white w-6 h-1.5"
+                  : "bg-white/30 w-1.5 h-1.5"
+                  }`}
                 aria-label={`Ir para slide ${i + 1}`}
               />
             ))}
