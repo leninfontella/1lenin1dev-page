@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 const OTHER_PROJECTS = [
   {
@@ -86,9 +86,9 @@ export default function OtherProjects() {
   const [current, setCurrent] = useState(0);
   const [visible, setVisible] = useState(getVisibleCount());
 
-  // Estados para gerenciar a posição do toque
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [dragStart, setDragStart] = useState<number | null>(null);
+  const [dragOffset, setDragOffset] = useState(0);
+  const dragged = useRef(false);
 
   // Distância mínima em pixels para acionar o swipe
   const minSwipeDistance = 50;
@@ -113,34 +113,31 @@ export default function OtherProjects() {
   const prev = () => setCurrent((c) => Math.max(c - 1, 0));
   const next = () => setCurrent((c) => Math.min(c + 1, maxIndex));
 
-  // Handlers para os eventos de toque
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    dragged.current = false;
+    setDragStart(e.clientX);
+    setDragOffset(0);
+    e.currentTarget.setPointerCapture(e.pointerId);
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStart === null) return;
+    const offset = e.clientX - dragStart;
+    setDragOffset(offset);
+    if (Math.abs(offset) > 8) dragged.current = true;
   };
 
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      next();
-    } else if (isRightSwipe) {
-      prev();
-    }
+  const handlePointerEnd = () => {
+    if (dragOffset < -minSwipeDistance) next();
+    if (dragOffset > minSwipeDistance) prev();
+    setDragStart(null);
+    setDragOffset(0);
   };
 
-  const cardWidthPercent = 100 / visible;
+  const cardWidthPercent = visible === 1 ? 84 : 100 / visible;
 
   return (
-    <section id="outros-projetos" className="py-24 px-6">
+    <section id="outros-projetos" className="py-24">
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
         <div className="flex items-center gap-3 mb-12">
@@ -155,7 +152,15 @@ export default function OtherProjects() {
 
         <div className="section-card glow-white p-8 md:p-10">
           {/* Header row with nav arrows */}
-          <div className="flex items-center justify-end mb-8">
+          <div className="flex items-center justify-between mb-8">
+            <span
+              className="text-xs font-semibold tracking-[0.25em] text-gray-400"
+              style={{ fontFamily: "Space Grotesk, sans-serif" }}
+              aria-live="polite"
+            >
+              {String(current + 1).padStart(2, "0")} /{" "}
+              {String(OTHER_PROJECTS.length).padStart(2, "0")}
+            </span>
             <div className="flex gap-2">
               <button
                 onClick={prev}
@@ -179,21 +184,24 @@ export default function OtherProjects() {
           {/* Carousel track */}
           <div className="overflow-hidden">
             <div
-              className="flex gap-6 carousel-slide select-none"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
+              className={`flex gap-6 carousel-slide select-none touch-pan-y ${
+                dragStart === null ? "cursor-grab" : "cursor-grabbing"
+              }`}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerEnd}
+              onPointerCancel={handlePointerEnd}
               style={{
-                transform: `translateX(calc(-${current} * (${cardWidthPercent}% + ${GAP_PX}px / ${visible})))`,
+                transform: `translateX(calc(-${current} * (${cardWidthPercent}% + ${GAP_PX}px / ${visible}) + ${dragOffset}px))`,
+                transition: dragStart === null ? undefined : "none",
               }}
             >
               {OTHER_PROJECTS.map((project) => {
                 const cardClassName =
-                  "project-card glow-white-hover flex-shrink-0 border border-white/15 rounded-xl overflow-hidden bg-white/5 block";
+                  "project-card glow-white-hover flex-shrink-0 border border-white/15 rounded-xl overflow-hidden bg-white/5 flex flex-col";
                 const cardStyle = {
                   width: `calc(${cardWidthPercent}% - ${(GAP_PX * (visible - 1)) / visible
                     }px)`,
-                  minWidth: "220px",
                 };
 
                 const cardContent = (
@@ -202,11 +210,12 @@ export default function OtherProjects() {
                       <img
                         src={project.image}
                         alt={project.title}
+                        draggable={false}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-black/30" />
                     </div>
-                    <div className="p-5">
+                    <div className="p-5 flex flex-col flex-1">
                       <h4
                         className="font-bold text-white text-sm mb-2"
                         style={{ fontFamily: "Space Grotesk, sans-serif" }}
@@ -216,7 +225,7 @@ export default function OtherProjects() {
                       <p className="text-gray-400 text-xs leading-relaxed mb-4">
                         {project.description}
                       </p>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-1.5 mb-5">
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
@@ -227,6 +236,12 @@ export default function OtherProjects() {
                           </span>
                         ))}
                       </div>
+                      <span
+                        className="mt-auto inline-flex items-center gap-2 text-xs font-semibold text-white"
+                        style={{ fontFamily: "Space Grotesk, sans-serif" }}
+                      >
+                        Ver projeto <ExternalLink size={13} />
+                      </span>
                     </div>
                   </>
                 );
@@ -239,6 +254,9 @@ export default function OtherProjects() {
                     rel="noopener noreferrer"
                     className={cardClassName}
                     style={cardStyle}
+                    onClick={(event) => {
+                      if (dragged.current) event.preventDefault();
+                    }}
                   >
                     {cardContent}
                   </a>

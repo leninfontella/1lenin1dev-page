@@ -66,6 +66,8 @@ section {
   Contact:  gray  → black (footer picks up)
 */
 .content-bg {
+  --pointer-x: 50%;
+  --pointer-y: 20%;
   background: linear-gradient(180deg,
     #000000  0%,
     #1a1a1a  4%,
@@ -82,6 +84,41 @@ section {
     #000000 100%
   );
   position: relative;
+}
+
+.content-bg::before,
+.content-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.content-bg::before {
+  z-index: 0;
+  background: radial-gradient(
+    520px circle at var(--pointer-x) var(--pointer-y),
+    rgba(255,255,255,0.1),
+    transparent 68%
+  );
+  transition: background 0.15s ease;
+}
+
+.content-bg::after {
+  z-index: 0;
+  opacity: 0.12;
+  background-image: repeating-radial-gradient(
+    circle at 20% 30%,
+    rgba(255,255,255,0.18) 0 0.5px,
+    transparent 0.7px 4px
+  );
+  background-size: 7px 7px;
+  mix-blend-mode: soft-light;
+}
+
+.content-bg > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Footer gradient: black → gray → white */
@@ -165,6 +202,10 @@ section {
   width: 100%;
 }
 
+.nav-link.is-active::after {
+  width: 100%;
+}
+
 /* Section reveal */
 @keyframes fadeInUp {
   from {
@@ -191,6 +232,105 @@ section {
   box-shadow: 0 20px 60px rgba(255,255,255,0.1);
 }
 
+/* Featured project motion and individual accent colors */
+.featured-project {
+  --project-accent-rgb: 255 255 255;
+  opacity: 0;
+  transform: translateY(24px);
+  border-color: rgb(var(--project-accent-rgb) / 0.55);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.accent-gold { --project-accent-rgb: 217 180 90; }
+.accent-blue { --project-accent-rgb: 70 155 255; }
+.accent-violet { --project-accent-rgb: 162 105 255; }
+
+.featured-project.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.featured-project .project-image {
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.5s ease;
+}
+
+.featured-project .project-content > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.featured-project.is-visible .project-content > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.featured-project.is-visible .project-content > :nth-child(1) { transition-delay: 0.12s; }
+.featured-project.is-visible .project-content > :nth-child(2) { transition-delay: 0.18s; }
+.featured-project.is-visible .project-content > :nth-child(3) { transition-delay: 0.24s; }
+.featured-project.is-visible .project-content > :nth-child(4) { transition-delay: 0.3s; }
+.featured-project.is-visible .project-content > :nth-child(5) { transition-delay: 0.36s; }
+.featured-project.is-visible .project-content > :nth-child(6) { transition-delay: 0.42s; }
+
+.project-tag {
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.project-cta {
+  border-color: rgb(var(--project-accent-rgb) / 0.65);
+}
+
+.project-cta-icon {
+  transition: transform 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .featured-project:hover {
+    transform: translateY(-6px);
+    border-color: rgb(var(--project-accent-rgb) / 0.95);
+    box-shadow:
+      0 20px 60px rgb(var(--project-accent-rgb) / 0.14),
+      0 0 28px rgb(var(--project-accent-rgb) / 0.1);
+  }
+
+  .featured-project:hover .project-image {
+    transform: scale(1.045);
+    filter: brightness(0.78);
+  }
+
+  .project-tag:hover {
+    color: #fff;
+    border-color: rgb(var(--project-accent-rgb) / 0.8);
+    background: rgb(var(--project-accent-rgb) / 0.12);
+  }
+
+  .project-cta:hover {
+    color: #050505;
+    background: rgb(var(--project-accent-rgb));
+    border-color: rgb(var(--project-accent-rgb));
+  }
+
+  .project-cta:hover .project-cta-icon {
+    transform: translate(2px, -2px);
+  }
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+}
+
+a:active,
+button:active {
+  transform: scale(0.98);
+}
+
 /* Skill badge */
 .skill-badge {
   transition: transform 0.2s ease, background 0.2s ease;
@@ -199,4 +339,29 @@ section {
 .skill-badge:hover {
   transform: scale(1.08);
   background: rgba(255,255,255,0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .featured-project,
+  .featured-project .project-content > * {
+    opacity: 1;
+    transform: none;
+  }
 }

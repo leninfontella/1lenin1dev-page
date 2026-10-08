@@ -127,7 +127,7 @@ export default function About() {
             <img
               src="/assets/images/423529.jpg"
               alt="Badge de certificação"
-              className="w-24 h-24object-contain"
+              className="w-24 h-24 object-contain"
             />
           </div>
         </div>

@@ -89,7 +89,7 @@ export default function Skills() {
           </div>
 
           {/* Static grid (mobile-friendly reference) */}
-          <div className="grid grid-cols-5 md:grid-cols-10 gap-3 mt-10 pt-10 border-t border-white/10">
+          <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-10 pt-10 border-t border-white/10">
             {SKILLS.map((skill) => {
               const Icon = skill.icon;
               return (

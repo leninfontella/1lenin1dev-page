@@ -32,7 +32,11 @@ const SOCIAL_LINKS = [
     href: "https://www.youtube.com/@lenincazzeri",
     label: "YouTube",
   },
-  { icon: MessageCircle, href: "https://w.app/haygej", label: "WhatsApp" },
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/5551989134037",
+    label: "WhatsApp",
+  },
 ];
 
 export default function Footer() {

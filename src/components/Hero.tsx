@@ -13,6 +13,7 @@ export default function Hero() {
     <section
       id="hero"
       className="relative bg-black w-full h-screen overflow-hidden"
+      style={{ height: "100dvh", minHeight: "100svh" }}
     >
       <video
         src="/assets/hero/1lenin1devpendulo2.mp4"

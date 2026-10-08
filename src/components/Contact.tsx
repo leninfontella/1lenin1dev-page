@@ -21,7 +21,7 @@ const CONTACT_INFO = [
     icon: Phone,
     label: "Telefone",
     value: "+55 (51) 98913-4037",
-    href: "tel:+5551989134037",
+    href: "https://wa.me/5551989134037",
   },
   { icon: MapPin, label: "Localização", value: "Porto Alegre / RS", href: "#" },
 ];
@@ -43,7 +43,11 @@ const SOCIAL_LINKS = [
     href: "https://www.youtube.com/@lenincazzeri",
     label: "YouTube",
   },
-  { icon: MessageCircle, href: "https://w.app/haygej", label: "WhatsApp" },
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/5551989134037",
+    label: "WhatsApp",
+  },
 ];
 
 export default function Contact() {
@@ -102,6 +106,12 @@ export default function Contact() {
               <a
                 key={label}
                 href={href}
+                target={href.startsWith("https://") ? "_blank" : undefined}
+                rel={
+                  href.startsWith("https://")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
                 className="project-card glow-white-hover border border-white/20 rounded-2xl p-6 flex flex-col items-center text-center gap-3 bg-white/5"
               >
                 <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
@@ -128,7 +138,7 @@ export default function Contact() {
             >
               Redes Sociais
             </span>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}

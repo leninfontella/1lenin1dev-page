@@ -34,17 +34,47 @@ const SOCIAL_LINKS = [
     href: "https://www.youtube.com/@lenincazzeri",
     label: "YouTube",
   },
-  { icon: MessageCircle, href: "https://w.app/haygej", label: "WhatsApp" },
+  {
+    icon: MessageCircle,
+    href: "https://wa.me/5551989134037",
+    label: "WhatsApp",
+  },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("#hero");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(
+        scrollableHeight > 0
+          ? Math.min((window.scrollY / scrollableHeight) * 100, 100)
+          : 0,
+      );
+
+      const current = [...NAV_LINKS]
+        .reverse()
+        .find(({ href }) => {
+          const section = document.querySelector(href);
+          return section && section.getBoundingClientRect().top <= 140;
+        });
+      setActiveSection(current?.href ?? "#hero");
+    };
+
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -88,7 +118,12 @@ export default function Header() {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="nav-link text-sm font-medium text-gray-300 hover:text-white transition-colors"
+              aria-current={activeSection === link.href ? "page" : undefined}
+              className={`nav-link text-sm font-medium transition-colors ${
+                activeSection === link.href
+                  ? "text-white is-active"
+                  : "text-gray-300 hover:text-white"
+              }`}
               style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
               {link.label}
@@ -117,6 +152,8 @@ export default function Header() {
           className="md:hidden text-white p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
         >
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -124,7 +161,10 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-black border-t border-white/10 px-6 py-4 flex flex-col gap-4">
+        <div
+          id="mobile-navigation"
+          className="md:hidden bg-black border-t border-white/10 px-6 py-4 flex flex-col gap-4"
+        >
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -133,7 +173,12 @@ export default function Header() {
                 e.preventDefault();
                 handleNavClick(link.href);
               }}
-              className="text-gray-300 hover:text-white text-sm font-medium py-1"
+              aria-current={activeSection === link.href ? "page" : undefined}
+              className={`text-sm font-medium py-1 transition-colors ${
+                activeSection === link.href
+                  ? "text-white"
+                  : "text-gray-300 hover:text-white"
+              }`}
               style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
               {link.label}
@@ -155,6 +200,12 @@ export default function Header() {
           </div>
         </div>
       )}
+
+      <div
+        className="absolute bottom-0 left-0 h-px bg-white/90 shadow-[0_0_10px_rgba(255,255,255,0.8)] transition-[width] duration-150"
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden="true"
+      />
     </header>
   );
 }
