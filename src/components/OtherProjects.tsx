@@ -17,7 +17,16 @@ const OTHER_PROJECTS = [
       <>Landing page <span className="line-through">NÃO</span> oficial da melhor hamburgueria da cidade de Canoas/RS.</>,
     image: "/assets/images/helenaburger.jpg",
     tags: ["React", "TypeScript", "Tailwind CSS"],
-    link: "https://helena-burger.vercel.app/",
+    link: "https://burgerhelena.vercel.app/",
+  },
+
+  {
+    title: "IA.AHH!",
+    description:
+      "Entre no dojo. Tome porrada verbal.",
+    image: "/assets/images/iaahh.jpg",
+    tags: ["React", "TypeScript", "Tailwind CSS"],
+    link: "https://iahh-combat-chat-ai.vercel.app/",
   },
 
   {
@@ -184,9 +193,8 @@ export default function OtherProjects() {
           {/* Carousel track */}
           <div className="overflow-hidden">
             <div
-              className={`flex gap-6 carousel-slide select-none touch-pan-y ${
-                dragStart === null ? "cursor-grab" : "cursor-grabbing"
-              }`}
+              className={`flex gap-6 carousel-slide select-none touch-pan-y ${dragStart === null ? "cursor-grab" : "cursor-grabbing"
+                }`}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerEnd}

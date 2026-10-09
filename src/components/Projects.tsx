@@ -244,7 +244,7 @@ export default function Projects() {
                 ))}
               </div>
               <a
-                href="https://numbergame-luck.vercel.app/"
+                href="https://number-game-luck.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="project-cta inline-flex items-center gap-2 text-sm md:text-base font-semibold text-white border border-white/30 rounded-full px-6 py-3 transition-all duration-300 w-fit"
