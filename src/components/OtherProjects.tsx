@@ -25,6 +25,7 @@ const OTHER_PROJECTS = [
     description:
       "Entre no dojo. Tome porrada verbal.",
     image: "/assets/images/iaahh.jpg",
+    imagePosition: "object-top",
     tags: ["React", "TypeScript", "Tailwind CSS"],
     link: "https://iahh-combat-chat-ai.vercel.app/",
   },
@@ -126,14 +127,20 @@ export default function OtherProjects() {
     dragged.current = false;
     setDragStart(e.clientX);
     setDragOffset(0);
-    e.currentTarget.setPointerCapture(e.pointerId);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (dragStart === null) return;
     const offset = e.clientX - dragStart;
     setDragOffset(offset);
-    if (Math.abs(offset) > 8) dragged.current = true;
+    if (Math.abs(offset) > 8) {
+      dragged.current = true;
+      // Capturar o ponteiro somente durante um arraste preserva o clique
+      // nativo dos links no desktop.
+      if (!e.currentTarget.hasPointerCapture(e.pointerId)) {
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }
+    }
   };
 
   const handlePointerEnd = () => {
@@ -219,7 +226,7 @@ export default function OtherProjects() {
                         src={project.image}
                         alt={project.title}
                         draggable={false}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                        className={`w-full h-full object-cover ${project.imagePosition ?? "object-center"} transition-transform duration-500 hover:scale-110`}
                       />
                       <div className="absolute inset-0 bg-black/30" />
                     </div>
