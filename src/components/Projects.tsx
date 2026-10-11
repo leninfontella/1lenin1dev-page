@@ -23,7 +23,27 @@ export default function Projects() {
     let animationFrame = 0;
     const updateCardStack = () => {
       animationFrame = 0;
-      if (!cards || window.innerWidth < 1024 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (!cards || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      if (window.innerWidth < 1024) {
+        cards.forEach((card) => {
+          const element = card as HTMLElement;
+          const rect = element.getBoundingClientRect();
+          const viewportCenter = window.innerHeight * 0.55;
+          const distance = rect.top + rect.height * 0.34 - viewportCenter;
+          const normalized = Math.max(-1, Math.min(1, distance / (window.innerHeight * 0.72)));
+          const focus = 1 - Math.min(1, Math.abs(normalized));
+          const scale = 0.94 + focus * 0.06;
+          const y = normalized * 42;
+          const opacity = 0.48 + focus * 0.52;
+          const imageY = normalized * -28;
+          element.style.setProperty("--mobile-card-scale", scale.toFixed(4));
+          element.style.setProperty("--mobile-card-y", `${y.toFixed(1)}px`);
+          element.style.setProperty("--mobile-card-opacity", opacity.toFixed(3));
+          element.style.setProperty("--mobile-image-y", `${imageY.toFixed(1)}px`);
+        });
+        return;
+      }
 
       const totalCards = cards.length;
       cards.forEach((card, index) => {

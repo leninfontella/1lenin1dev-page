@@ -381,11 +381,217 @@ button:active {
   }
 }
 
+/* Mobile project depth: replaces sticky stacking on touch layouts */
+@media (max-width: 1023px) {
+  #projetos .featured-project {
+    --mobile-card-scale: .94;
+    --mobile-card-y: 42px;
+    --mobile-card-opacity: .55;
+    --mobile-image-y: -20px;
+    opacity: var(--mobile-card-opacity) !important;
+    transform: translate3d(0, var(--mobile-card-y), 0) scale(var(--mobile-card-scale)) !important;
+    transform-origin: center center;
+    transition: opacity .18s linear, transform .18s linear, border-color .3s ease, box-shadow .3s ease;
+    will-change: transform, opacity;
+  }
+
+  #projetos .featured-project .project-image {
+    transform: translate3d(0, var(--mobile-image-y), 0) scale(1.1);
+    transition: transform .18s linear;
+    will-change: transform;
+  }
+}
+
+/* Scroll energy beam: responds to direction and wheel/touch velocity */
+.scroll-energy {
+  --energy-strength: .2;
+  position: fixed;
+  z-index: 70;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 138px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, calc(100vh - 150px), 0) scaleX(.75);
+  transform-origin: center;
+  background:
+    radial-gradient(ellipse at center, rgba(255,255,255,calc(.09 * var(--energy-strength))) 0%, rgba(255,106,0,calc(.13 * var(--energy-strength))) 24%, transparent 69%),
+    linear-gradient(90deg, transparent 8%, rgba(255,255,255,.24) 50%, transparent 92%) center / 100% 1px no-repeat;
+  filter: blur(calc(13px - var(--energy-strength) * 7px));
+  mix-blend-mode: screen;
+  transition: opacity .42s ease, transform .24s cubic-bezier(.22,1,.36,1), filter .25s ease;
+  will-change: transform, opacity;
+}
+
+.scroll-energy.is-active {
+  opacity: calc(.25 + var(--energy-strength) * .58);
+  transition-duration: .08s, .16s, .12s;
+}
+
+@media (max-width: 760px) {
+  .scroll-energy { height: 100px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #projetos .featured-project,
+  #projetos .featured-project .project-image {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+  .scroll-energy { display: none; }
+}
+
 @media (max-width: 1023px) {
   #projetos .featured-project {
     position: relative;
     top: auto !important;
     scale: 1;
     margin-bottom: 3rem;
+  }
+}
+
+/* Hero 1lênin1dev — mouse + scroll parallax */
+.code-hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  background: #050607;
+}
+
+.code-hero-scene {
+  position: absolute;
+  z-index: -4;
+  inset: -7%;
+  background: url('/assets/hero/code-parallax-hero.png') center / cover no-repeat;
+  transform: scale(1.08);
+  will-change: transform;
+  transition: transform 0.22s ease-out;
+}
+
+.code-hero-vignette {
+  position: absolute;
+  z-index: -3;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.62) 33%, rgba(0,0,0,.08) 68%, rgba(0,0,0,.28) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.45), transparent 30%, rgba(0,0,0,.7));
+}
+
+.code-hero-glow {
+  position: absolute;
+  z-index: -2;
+  top: 18%;
+  left: 34%;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(255, 102, 0, .12);
+  filter: blur(90px);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.code-hero-grid {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: .12;
+  background-image: linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(90deg, #000, transparent 60%);
+}
+
+.code-hero-content {
+  position: absolute;
+  z-index: 3;
+  top: 35%;
+  left: clamp(24px, 8vw, 140px);
+  width: min(690px, 58vw);
+  transform: translateY(0);
+  will-change: transform, opacity;
+  transition: transform .18s ease-out;
+  animation: codeHeroReveal .9s cubic-bezier(.22,1,.36,1) both;
+}
+
+.code-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  color: #a7aaad;
+  font-family: var(--font-primary);
+  font-size: clamp(.58rem, .8vw, .72rem);
+  letter-spacing: .34em;
+}
+
+.code-hero-eyebrow span { color: #ff6a00; font-weight: 700; letter-spacing: 0; }
+.code-hero-eyebrow i { width: 54px; height: 1px; background: linear-gradient(90deg, #ff6a00, transparent); }
+.code-hero-content h1 { color: #f2f2f0; font-family: var(--font-primary); font-size: clamp(4rem, 9.3vw, 9.5rem); font-weight: 700; line-height: .82; letter-spacing: -.09em; text-shadow: 0 18px 50px rgba(0,0,0,.68); }
+.code-hero-content p { margin-top: 30px; color: #c4c5c6; font-size: clamp(.82rem, 1.15vw, 1.08rem); font-weight: 300; line-height: 1.5; letter-spacing: .04em; }
+.code-hero-actions { display: flex; gap: 12px; margin-top: 26px; }
+.code-hero-actions a { display: inline-flex; align-items: center; gap: 9px; padding: 13px 24px; color: #070707; background: #f1f1ee; border: 1px solid #f1f1ee; border-radius: 3px; font-family: var(--font-primary); font-size: .77rem; font-weight: 600; text-decoration: none; transition: .25s ease; }
+.code-hero-actions .code-hero-ghost { color: #eee; background: rgba(8,8,8,.35); border-color: rgba(255,255,255,.38); backdrop-filter: blur(10px); }
+.code-hero-actions a:hover { color: #070707; background: #ff6a00; border-color: #ff6a00; transform: translateY(-3px); }
+.code-hero-status { position: absolute; z-index: 4; left: clamp(24px, 8vw, 140px); right: clamp(24px, 5vw, 80px); bottom: 30px; display: flex; justify-content: space-between; color: #84878a; font-family: var(--font-primary); font-size: .59rem; letter-spacing: .16em; }
+.code-hero-status span { display: flex; align-items: center; gap: 8px; }
+.code-hero-status b { width: 6px; height: 6px; border-radius: 50%; background: #55cc76; box-shadow: 0 0 10px #55cc76; animation: statusPulse 1.8s ease-in-out infinite; }
+.code-hero-scroll { position: absolute; z-index: 4; right: clamp(24px, 5vw, 80px); bottom: 66px; display: flex; align-items: center; color: #ddd; background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.22); border-radius: 50%; width: 42px; height: 42px; justify-content: center; cursor: pointer; backdrop-filter: blur(8px); transition: border-color .25s ease, background .25s ease; }
+.code-hero-scroll:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+.code-hero-scroll svg { animation: heroArrow 1.5s ease-in-out infinite; }
+
+@keyframes codeHeroReveal { from { opacity: 0; transform: translate3d(0, 45px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes statusPulse { 50% { opacity: .35; transform: scale(.72); } }
+@keyframes heroArrow { 50% { transform: translateY(7px); } }
+
+@media (max-width: 760px) {
+  .code-hero { min-height: 620px; }
+  .code-hero-scene { inset: -5% -38%; background-position: 60% center; opacity: .82; }
+  .code-hero-vignette { background: linear-gradient(180deg, rgba(0,0,0,.48), rgba(0,0,0,.52) 45%, rgba(0,0,0,.88)); }
+  .code-hero-content { top: 32%; left: 24px; width: calc(100% - 48px); }
+  .code-hero-content h1 { font-size: clamp(3.4rem, 18vw, 6rem); }
+  .code-hero-status { left: 24px; right: 24px; }
+  .code-hero-status span:last-child { display: none; }
+  .code-hero-scroll { right: 22px; bottom: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-hero-scene, .code-hero-glow, .code-hero-content { transition: none; }
+  .code-hero-status b, .code-hero-scroll svg { animation: none; }
+}
+
+/* Transição suave entre seções durante a navegação */
+.content-bg > .page-section-transition {
+  position: relative;
+  opacity: .04;
+  transform: translate3d(0, 34px, 0);
+  transition:
+    opacity 1.65s cubic-bezier(.16, 1, .3, 1),
+    transform 1.35s cubic-bezier(.16, 1, .3, 1);
+  will-change: transform, opacity;
+}
+
+.content-bg > .page-section-transition.page-section-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  .content-bg > .page-section-transition {
+    transform: translate3d(0, 24px, 0);
+    transition-duration: 1.4s, 1.15s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-bg > .page-section-transition,
+  .content-bg > .page-section-transition.page-section-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

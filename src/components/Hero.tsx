@@ -1,87 +1,89 @@
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
-  const [loaded, setLoaded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const scrollToNext = () => {
-    const about = document.querySelector("#sobre");
-    if (about) about.scrollIntoView({ behavior: "smooth" });
-  };
+  useEffect(() => {
+    let frame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const render = () => {
+      frame = 0;
+      const scroll = Math.min(window.scrollY, window.innerHeight * 1.2);
+      if (sceneRef.current) {
+        sceneRef.current.style.transform = `translate3d(${pointerX * -58}px, ${scroll * 0.42 + pointerY * -38}px, 0) scale(1.14)`;
+      }
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${pointerX * 96}px, ${scroll * 0.2 + pointerY * 68}px, 0)`;
+      }
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translate3d(${pointerX * 24}px, ${scroll * 0.62 + pointerY * 18}px, 0)`;
+        contentRef.current.style.opacity = String(Math.max(0, 1 - scroll / (window.innerHeight * 0.62)));
+      }
+    };
+
+    const requestRender = () => {
+      if (!frame) frame = requestAnimationFrame(render);
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      pointerX = event.clientX / window.innerWidth - 0.5;
+      pointerY = event.clientY / window.innerHeight - 0.5;
+      requestRender();
+    };
+
+    const onPointerLeave = () => {
+      pointerX = 0;
+      pointerY = 0;
+      requestRender();
+    };
+
+    render();
+    window.addEventListener("scroll", requestRender, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onPointerLeave);
+    return () => {
+      window.removeEventListener("scroll", requestRender);
+      window.removeEventListener("pointermove", onPointerMove);
+      document.documentElement.removeEventListener("mouseleave", onPointerLeave);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
   return (
-    <section
-      id="hero"
-      className="relative bg-black w-full h-screen overflow-hidden"
-      style={{ height: "100dvh", minHeight: "100svh" }}
-    >
-      <video
-        src="/assets/hero/1lenin1devpendulo2.mp4"
-        className="w-full h-full object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        tabIndex={-1}
-        onLoadedData={() => setLoaded(true)}
-      />
+    <section id="hero" ref={sectionRef} className="code-hero">
+      <div ref={sceneRef} className="code-hero-scene" aria-hidden="true" />
+      <div className="code-hero-vignette" aria-hidden="true" />
+      <div ref={glowRef} className="code-hero-glow" aria-hidden="true" />
+      <div className="code-hero-grid" aria-hidden="true" />
 
-      {/* Darkening overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.15) 0%,
-            rgba(0,0,0,0.35) 45%,
-            rgba(0,0,0,0.75) 100%
-          )`,
-        }}
-      />
-
-      {/* Hero text */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-none">
-        <p
-          className="text-xs font-semibold tracking-[0.4em] text-gray-200 uppercase mb-4"
-          style={{ fontFamily: "Space Grotesk, sans-serif" }}
-        >
-          Full Stack Developer
-        </p>
-        <h1
-          className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-6"
-          style={{
-            fontFamily: "Space Grotesk, sans-serif",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Lênin
-          <br />
-          <span className="text-gradient">Fontella</span>
-        </h1>
-        <p
-          className="max-w-md text-base md:text-lg text-gray-300 font-light leading-relaxed"
-          style={{ fontFamily: "Inter, sans-serif" }}
-        >
-          Interfaces modernas. Soluções escaláveis. Código que entrega valor.
-        </p>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center text-white/70">
-        <ChevronDown
-          size={28}
-          className="animate-bounce cursor-pointer"
-          onClick={scrollToNext}
-        />
-      </div>
-
-      {/* Loading state */}
-      {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black">
-          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+      <div ref={contentRef} className="code-hero-content">
+        <div className="code-hero-eyebrow">
+          <span>01</span>
+          <i />
+          FULL STACK DEVELOPER
         </div>
-      )}
+        <h1>Lênin Fontella</h1>
+        <p>Interfaces modernas. Soluções escaláveis.<br />Código que entrega valor.</p>
+        <div className="code-hero-actions">
+          <a href="#projetos">Ver projetos <ArrowUpRight size={16} /></a>
+          <a href="#contato" className="code-hero-ghost">Vamos conversar</a>
+        </div>
+      </div>
+
+      <div className="code-hero-status">
+        <span><b /> DISPONÍVEL PARA NOVOS PROJETOS</span>
+        <span>PORTO ALEGRE · BR</span>
+      </div>
+
+      <button className="code-hero-scroll" onClick={() => document.querySelector("#sobre")?.scrollIntoView({ behavior: "smooth" })} aria-label="Rolar para a seção Sobre">
+        <ArrowDown size={20} />
+      </button>
     </section>
   );
 }
