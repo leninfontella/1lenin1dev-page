@@ -254,6 +254,21 @@ section {
   transform: translateY(0);
 }
 
+/* Sticky stacking effect from the supplied reference — Projects only */
+#projetos .featured-project {
+  --stack-scale: 1;
+  position: sticky;
+  top: 96px;
+  scale: var(--stack-scale);
+  transform-origin: top center;
+  will-change: scale;
+  margin-bottom: 18vh;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+#projetos .featured-project:nth-of-type(3) { top: 124px; }
+#projetos .featured-project:nth-of-type(4) { top: 152px; }
+
 .featured-project .project-image {
   transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.5s ease;
 }
@@ -363,5 +378,14 @@ button:active {
   .featured-project .project-content > * {
     opacity: 1;
     transform: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  #projetos .featured-project {
+    position: relative;
+    top: auto !important;
+    scale: 1;
+    margin-bottom: 3rem;
   }
 }

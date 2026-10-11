@@ -19,8 +19,43 @@ export default function Projects() {
     );
     const cards = sectionRef.current?.querySelectorAll(".featured-project");
     cards?.forEach((card) => observer.observe(card));
+
+    let animationFrame = 0;
+    const updateCardStack = () => {
+      animationFrame = 0;
+      if (!cards || window.innerWidth < 1024 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const totalCards = cards.length;
+      cards.forEach((card, index) => {
+        const element = card as HTMLElement;
+        const nextCard = cards[index + 1] as HTMLElement | undefined;
+        const targetScale = 1 - (totalCards - 1 - index) * 0.03;
+
+        if (!nextCard) {
+          element.style.setProperty("--stack-scale", "1");
+          return;
+        }
+
+        const stickyTop = 96 + index * 28;
+        const distance = nextCard.getBoundingClientRect().top - stickyTop;
+        const progress = Math.max(0, Math.min(1, 1 - distance / (window.innerHeight * 0.72)));
+        const scale = 1 + (targetScale - 1) * progress;
+        element.style.setProperty("--stack-scale", scale.toFixed(4));
+      });
+    };
+
+    const requestStackUpdate = () => {
+      if (!animationFrame) animationFrame = requestAnimationFrame(updateCardStack);
+    };
+
+    updateCardStack();
+    window.addEventListener("scroll", requestStackUpdate, { passive: true });
+    window.addEventListener("resize", requestStackUpdate);
     return () => {
       observer.disconnect();
+      window.removeEventListener("scroll", requestStackUpdate);
+      window.removeEventListener("resize", requestStackUpdate);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
     };
   }, []);
 
