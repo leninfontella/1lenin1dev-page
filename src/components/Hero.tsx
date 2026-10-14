@@ -21,6 +21,16 @@ import {
 
 const STAGES = [
   {
+    key: "intro",
+    number: "00",
+    title: "Lênin Fontella",
+    verb: "Apresentar",
+    description: "Ideias transformadas em experiências digitais.",
+    tags: [],
+    accent: "#f2f2f2",
+    Icon: Code2,
+  },
+  {
     key: "idea",
     number: "01",
     title: "Ideia",
@@ -257,13 +267,13 @@ export default function Hero() {
   return (
     <section id="hero" ref={sectionRef} className="process-hero">
       <div className="process-hero-sticky">
-        <header className={`process-hero-title ${activeStage === STAGES.length - 1 ? "is-hidden" : ""}`}>
+        <header className={`process-hero-title ${activeStage === 0 || activeStage === STAGES.length - 1 ? "is-hidden" : ""}`}>
           <p className="process-hero-roles" aria-live="polite">
             {ROLE_TITLES.map((role, index) => (
               <span
                 key={role}
-                className={index === activeStage ? "is-active" : ""}
-                aria-hidden={index !== activeStage}
+                className={index + 1 === activeStage ? "is-active" : ""}
+                aria-hidden={index + 1 !== activeStage}
               >
                 {role}
               </span>
@@ -296,13 +306,13 @@ export default function Hero() {
         <CodeCloud visible={activeStage === STAGES.length - 1} />
 
         <div className="process-card-stage" aria-live="polite">
-          {STAGES.slice(0, -1).map((stage, index) => {
+          {STAGES.slice(1, -1).map((stage, index) => {
             const Icon = stage.Icon;
             return (
               <article
                 key={stage.key}
-                className={`process-card ${index === activeStage ? "is-active" : ""}`}
-                aria-hidden={index !== activeStage}
+                className={`process-card ${index + 1 === activeStage ? "is-active" : ""}`}
+                aria-hidden={index + 1 !== activeStage}
                 style={{ "--stage-accent": stage.accent } as CSSProperties}
               >
                 <div className="process-card-meta">

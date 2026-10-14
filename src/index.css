@@ -829,7 +829,7 @@ button:active {
 /* Process story hero — one lightweight notebook, four screen states */
 .process-hero {
   position: relative;
-  height: 620svh;
+  height: 720svh;
   background: #000;
   scroll-margin-top: 0;
 }
@@ -1273,12 +1273,34 @@ button:active {
 }
 
 @media (max-width: 760px) {
-  .process-hero { height: 600svh; }
-  .process-hero-sticky { min-height: 620px; }
-  .process-hero-title { top: calc(64px + 24px); width: calc(100% - 26px); }
+  .process-hero { height: 700svh; }
+  .process-hero-sticky {
+    min-height: 620px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(4px, 1svh, 8px);
+    padding: 72px 0 max(8px, env(safe-area-inset-bottom));
+  }
+  .process-hero-title {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: calc(100% - 26px);
+    flex: 0 0 auto;
+    transform: none;
+  }
+  .process-hero-title.is-hidden { transform: translate3d(0,-12px,0); }
   .process-hero-title p { margin-bottom: 8px; font-size: .46rem; letter-spacing: .23em; }
-  .process-hero-title h1 { font-size: clamp(3rem, 16.5vw, 5.2rem); }
-  .process-device { top: 15%; width: 146vw; }
+  .process-hero-title h1 { font-size: clamp(2.65rem, 13vw, 4rem); white-space: nowrap; }
+  .process-device {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 118vw;
+    flex: 0 0 auto;
+    transform: none;
+  }
   .screen-status { font-size: .28rem; }
   .idea-flow { gap: 4px; }
   .idea-flow > span { font-size: .3rem; }
@@ -1300,9 +1322,19 @@ button:active {
   .process-code-cloud code:nth-child(6) { right: 4%; bottom: 26%; }
   .process-code-cloud code:nth-child(7) { top: 15%; left: 6%; }
   .process-code-cloud code:nth-child(8) { top: 16%; right: 6%; }
-  .process-card-stage { top: auto; right: 16px; bottom: 24px; left: 16px; min-height: 238px; transform: none; }
+  .process-card-stage {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: calc(100% - 32px);
+    min-height: clamp(210px, 31svh, 238px);
+    flex: 0 0 auto;
+    transform: none;
+  }
   .process-card,
-  .process-card:nth-child(even) { top: 0; right: 0; left: 0; width: auto; min-height: 238px; justify-content: center; padding: 17px 18px; border-radius: 17px; transform: translate3d(0,20px,0) scale(.97); }
+  .process-card:nth-child(even) { top: 0; right: 0; left: 0; width: auto; min-height: clamp(210px, 31svh, 238px); justify-content: center; padding: 17px 18px; border-radius: 17px; transform: translate3d(0,20px,0) scale(.97); }
   .process-card.is-active,
   .process-card:nth-child(even).is-active { transform: none; }
   .process-card-meta { margin-bottom: 9px; font-size: .46rem; }
