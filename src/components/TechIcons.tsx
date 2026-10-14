@@ -47,6 +47,14 @@ export function TypeScriptIcon({ size = 24, className = '' }: IconProps) {
   );
 }
 
+export function TailwindIcon({ size = 24, className = '' }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M12 6.04c-2.67 0-4.34 1.34-5 4.02 1-1.34 2.17-1.84 3.5-1.51.76.19 1.3.74 1.9 1.35.98 1 2.12 2.16 4.6 2.16 2.67 0 4.34-1.34 5-4.02-1 1.34-2.17 1.84-3.5 1.51-.76-.19-1.3-.74-1.9-1.35-.98-1-2.12-2.16-4.6-2.16ZM7 11.98c-2.67 0-4.34 1.34-5 4.02 1-1.34 2.17-1.84 3.5-1.51.76.19 1.3.74 1.9 1.35.98 1 2.12 2.16 4.6 2.16 2.67 0 4.34-1.34 5-4.02-1 1.34-2.17 1.84-3.5 1.51-.76-.19-1.3-.74-1.9-1.35-.98-1-2.12-2.16-4.6-2.16Z" />
+    </svg>
+  );
+}
+
 export function NodeJsIcon({ size = 24, className = '' }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="currentColor">
