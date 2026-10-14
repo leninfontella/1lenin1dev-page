@@ -63,8 +63,7 @@ export default function Footer() {
               Lênin Fontella
             </h3>
             <p className="text-sm text-gray-300 leading-relaxed max-w-xs">
-              Full Stack Developer focado em interfaces modernas e soluções
-              escaláveis. Construindo produtos de alto impacto.
+              Full Stack Developer.
             </p>
           </div>
 

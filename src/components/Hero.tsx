@@ -69,7 +69,6 @@ export default function Hero() {
           FULL STACK DEVELOPER
         </div>
         <h1>Lênin Fontella</h1>
-        <p>Interfaces modernas. Soluções escaláveis.<br />Código que entrega valor.</p>
         <div className="code-hero-actions">
           <a href="#projetos">Ver projetos <ArrowUpRight size={16} /></a>
           <a href="#contato" className="code-hero-ghost">Vamos conversar</a>
@@ -78,7 +77,6 @@ export default function Hero() {
 
       <div className="code-hero-status">
         <span><b /> DISPONÍVEL PARA NOVOS PROJETOS</span>
-        <span>PORTO ALEGRE · BR</span>
       </div>
 
       <button className="code-hero-scroll" onClick={() => document.querySelector("#sobre")?.scrollIntoView({ behavior: "smooth" })} aria-label="Rolar para a seção Sobre">
