@@ -119,7 +119,6 @@ export default function ProjectsTransition() {
           <i aria-hidden="true" />
         </div>
 
-        <span className="projects-bridge-index" aria-hidden="true">02 / PROJETOS</span>
       </div>
     </section>
   );

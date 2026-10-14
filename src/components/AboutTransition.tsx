@@ -34,6 +34,12 @@ export default function AboutTransition() {
       section.style.setProperty("--bridge-detail-y", "0px");
       section.style.setProperty("--bridge-shade-opacity", ".38");
       section.style.setProperty("--bridge-line-scale", "1");
+      section.style.setProperty("--bridge-visual-opacity", "1");
+      section.style.setProperty("--bridge-visual-x", "0px");
+      section.style.setProperty("--bridge-visual-blur", "0px");
+      section.style.setProperty("--bridge-layer-one-opacity", "1");
+      section.style.setProperty("--bridge-layer-two-opacity", "1");
+      section.style.setProperty("--bridge-layer-three-opacity", "1");
     };
 
     if (reducedMotion.matches) {
@@ -82,6 +88,21 @@ export default function AboutTransition() {
         String(0.96 - imageReveal * 0.74 + imageFadeOut * 0.72),
       );
       section.style.setProperty("--bridge-line-scale", String(detailOpacity));
+      section.style.setProperty(
+        "--bridge-visual-opacity",
+        String(1 - imageFadeOut),
+      );
+      section.style.setProperty(
+        "--bridge-visual-x",
+        `${70 * (1 - lineOneIn) - imageFadeOut * 30}px`,
+      );
+      section.style.setProperty(
+        "--bridge-visual-blur",
+        `${Math.max(0, (1 - lineOneIn) * 8 + imageFadeOut * 4)}px`,
+      );
+      section.style.setProperty("--bridge-layer-one-opacity", String(lineOneIn));
+      section.style.setProperty("--bridge-layer-two-opacity", String(lineTwoIn));
+      section.style.setProperty("--bridge-layer-three-opacity", String(detailIn));
     };
 
     const requestUpdate = () => {
@@ -103,14 +124,12 @@ export default function AboutTransition() {
     <section ref={sectionRef} className="about-bridge" aria-label="Introdução à seção Sobre mim">
       <div className="about-bridge-sticky">
         <div className="about-bridge-frame">
-          <img
-            className="about-bridge-image"
-            src="/assets/images/about-transition-v5.png"
-            alt="Pequeno perfil abstrato oculto entre fluxos, conexões e fragmentos digitais"
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="about-bridge-shade" />
+          <div className="about-bridge-atmosphere" aria-hidden="true" />
+          <div className="about-bridge-layers" aria-hidden="true">
+            <span className="about-bridge-layer about-bridge-layer-one" />
+            <span className="about-bridge-layer about-bridge-layer-two" />
+            <span className="about-bridge-layer about-bridge-layer-three" />
+          </div>
         </div>
 
         <div className="about-bridge-copy">
@@ -123,7 +142,10 @@ export default function AboutTransition() {
           <i aria-hidden="true" />
         </div>
 
-        <span className="about-bridge-index" aria-hidden="true">01 / SOBRE</span>
+        <span className="about-bridge-index" aria-hidden="true">
+          01 / SOBRE
+        </span>
+
       </div>
     </section>
   );

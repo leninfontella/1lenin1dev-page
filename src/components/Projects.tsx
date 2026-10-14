@@ -91,7 +91,7 @@ export default function Projects() {
         <div className="flex items-center gap-3 mb-12">
           <div className="h-px flex-1 max-w-[60px] bg-white/40" />
           <span
-            className="text-xs font-semibold tracking-[0.35em] text-gray-400 uppercase"
+            className="portfolio-section-title font-semibold text-gray-400 uppercase"
             style={{ fontFamily: "Space Grotesk, sans-serif" }}
           >
             Projetos

@@ -135,9 +135,6 @@ export default function ContactTransition() {
           <i aria-hidden="true" />
         </div>
 
-        <span className="other-projects-bridge-index" aria-hidden="true">
-          05 / CONTATO
-        </span>
       </div>
     </section>
   );

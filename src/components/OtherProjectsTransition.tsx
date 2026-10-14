@@ -121,9 +121,7 @@ export default function OtherProjectsTransition() {
           <i aria-hidden="true" />
         </div>
 
-        <span className="other-projects-bridge-index" aria-hidden="true">
-          03 / OUTROS
-        </span>
+
       </div>
     </section>
   );

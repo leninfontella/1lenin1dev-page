@@ -121,9 +121,7 @@ export default function SkillsTransition() {
           <i aria-hidden="true" />
         </div>
 
-        <span className="other-projects-bridge-index" aria-hidden="true">
-          04 / HABILIDADES
-        </span>
+
       </div>
     </section>
   );
