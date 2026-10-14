@@ -1,15 +1,24 @@
 import { useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import AboutTransition from './components/AboutTransition';
 import About from './components/About';
+import ProjectsTransition from './components/ProjectsTransition';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import ContactTransition from './components/ContactTransition';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
-    const sections = document.querySelectorAll<HTMLElement>('.content-bg > section');
+    const projectsSection = document.querySelector<HTMLElement>('.content-bg > #projetos');
+    projectsSection?.classList.remove('page-section-transition', 'page-section-visible');
+    projectsSection?.style.removeProperty('--section-order');
+
+    const sections = document.querySelectorAll<HTMLElement>(
+      '.content-bg > section:not(.projects-bridge):not(.scroll-bridge):not(#projetos)',
+    );
     sections.forEach((section, index) => {
       section.classList.add('page-section-transition');
       section.style.setProperty('--section-order', String(index));
@@ -36,6 +45,7 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <AboutTransition />
         <div
           className="content-bg"
           onPointerMove={(event) => {
@@ -51,8 +61,10 @@ function App() {
           }}
         >
           <About />
+          <ProjectsTransition />
           <Projects />
           <Skills />
+          <ContactTransition />
           <Contact />
         </div>
       </main>

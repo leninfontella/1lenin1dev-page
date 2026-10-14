@@ -1,6 +1,8 @@
 import { useRef, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
 import OtherProjects from "./OtherProjects";
+import OtherProjectsTransition from "./OtherProjectsTransition";
+import SkillsTransition from "./SkillsTransition";
 
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -388,7 +390,9 @@ export default function Projects() {
         </div>
       </div>
 
+      <OtherProjectsTransition />
       <OtherProjects />
+      <SkillsTransition />
     </section>
   );
 }
