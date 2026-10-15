@@ -816,7 +816,7 @@ button:active {
 /* Process story hero — one lightweight notebook, four screen states */
 .process-hero {
   position: relative;
-  height: 720svh;
+  height: 580svh;
   background: #000;
   scroll-margin-top: 0;
 }
@@ -1260,7 +1260,7 @@ button:active {
 }
 
 @media (max-width: 760px) {
-  .process-hero { height: 700svh; }
+  .process-hero { height: 564svh; }
   .process-hero-sticky {
     min-height: 620px;
     display: flex;
@@ -1370,7 +1370,7 @@ button:active {
   --bridge-layer-two-opacity: 0;
   --bridge-layer-three-opacity: 0;
   position: relative;
-  height: 720svh;
+  height: 580svh;
   background: #000;
 }
 
@@ -1611,7 +1611,7 @@ button:active {
 }
 
 @media (max-width: 760px) {
-  .about-bridge { height: 440svh; }
+  .about-bridge { height: 354svh; }
   .about-bridge-sticky { min-height: 620px; }
   .about-bridge-layers {
     top: 13%;
@@ -1661,7 +1661,7 @@ button:active {
   --projects-white-opacity: .9;
   --projects-line-scale: 0;
   position: relative;
-  height: 720svh;
+  height: 580svh;
   background: transparent;
   color: #161616;
 }
@@ -1804,7 +1804,7 @@ button:active {
 }
 
 @media (max-width: 760px) {
-  .projects-bridge { height: 440svh; }
+  .projects-bridge { height: 354svh; }
   .projects-bridge-sticky { min-height: 620px; }
   .projects-bridge-image {
     width: calc(100% + 48px);
@@ -1855,7 +1855,7 @@ button:active {
   --archive-line-scale: 0;
   position: relative;
   width: 100vw;
-  height: 720svh;
+  height: 580svh;
   margin-left: calc(50% - 50vw);
   background: transparent;
   color: #f5f5f5;
@@ -1995,7 +1995,7 @@ button:active {
 }
 
 @media (max-width: 760px) {
-  .other-projects-bridge { height: 440svh; }
+  .other-projects-bridge { height: 354svh; }
   .other-projects-bridge-sticky { min-height: 620px; }
   .other-projects-bridge-image {
     width: calc(100% + 48px);
